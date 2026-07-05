@@ -16,6 +16,12 @@ import java.awt.Font;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 
+/**
+ * Panel for managing forward proxy settings.
+ * 
+ * @author yuehan124@gmail.com
+ * @since 2026-07-05
+ */
 public class ProxyPanel extends JPanel {
 
     private final ProxyService proxyService;

@@ -3,12 +3,21 @@ package com.myproxy.ui;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import java.awt.AWTException;
+import java.awt.Desktop;
 import java.awt.Image;
 import java.awt.SystemTray;
 import java.awt.TrayIcon;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.IOException;
 
+/**
+ * System tray manager for displaying notifications and handling user actions.
+ * 
+ * @author yuehan124@gmail.com
+ * @since 2026-07-05
+ */
 public class SystemTrayManager {
 
     private final MainFrame mainFrame;
@@ -34,7 +43,7 @@ public class SystemTrayManager {
         trayIcon.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (e.getClickCount() == 2) {
+                if (e.getButton() == MouseEvent.BUTTON1) {
                     mainFrame.showWindow();
                 } else if (e.getButton() == MouseEvent.BUTTON3) {
                     popup.setLocation(e.getX(), e.getY());
@@ -58,15 +67,24 @@ public class SystemTrayManager {
     }
 
     private JPopupMenu createMenu() {
+        I18nManager i18n = I18nManager.getInstance();
         JPopupMenu menu = new JPopupMenu();
 
-        JMenuItem showItem = new JMenuItem("\u663e\u793a\u7a97\u53e3");
+        JMenuItem showItem = new JMenuItem(i18n.getString("tray.show"));
         showItem.addActionListener(e -> mainFrame.showWindow());
         menu.add(showItem);
 
+        JMenuItem showLogItem = new JMenuItem(i18n.getString("tray.showlog"));
+        showLogItem.addActionListener(e -> openLogFile());
+        menu.add(showLogItem);
+
+        JMenuItem editConfigItem = new JMenuItem(i18n.getString("tray.editconfig"));
+        editConfigItem.addActionListener(e -> openConfigFile());
+        menu.add(editConfigItem);
+
         menu.addSeparator();
 
-        JMenuItem exitItem = new JMenuItem("\u9000\u51fa");
+        JMenuItem exitItem = new JMenuItem(i18n.getString("tray.exit"));
         exitItem.addActionListener(e -> {
             remove();
             mainFrame.exitApp();
@@ -74,5 +92,29 @@ public class SystemTrayManager {
         menu.add(exitItem);
 
         return menu;
+    }
+
+    private void openLogFile() {
+        String userHome = System.getProperty("user.home");
+        File logDir = new File(userHome, ".myproxy/logs");
+        File logFile = new File(logDir, "myproxy.log");
+        openFile(logFile.exists() ? logFile : logDir);
+    }
+
+    private void openConfigFile() {
+        String userHome = System.getProperty("user.home");
+        File configFile = new File(userHome, ".myproxy/config.json");
+        openFile(configFile);
+    }
+
+    private void openFile(File file) {
+        if (!Desktop.isDesktopSupported()) {
+            return;
+        }
+        try {
+            Desktop.getDesktop().open(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

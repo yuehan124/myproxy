@@ -6,11 +6,8 @@ import com.myproxy.proxy.ReverseProxyService;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Frame;
@@ -20,6 +17,12 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
+/**
+ * Main application frame for the MyProxy application.
+ * 
+ * @author yuehan124@gmail.com
+ * @since 2026-07-05
+ */
 public class MainFrame extends JFrame {
 
     private final ProxyService proxyService;

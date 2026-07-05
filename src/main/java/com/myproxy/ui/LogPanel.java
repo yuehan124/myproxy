@@ -12,6 +12,12 @@ import java.awt.Font;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Panel for displaying and managing log messages.
+ * 
+ * @author yuehan124@gmail.com
+ * @since 2026-07-05
+ */
 public class LogPanel extends JPanel {
 
     private static final DateTimeFormatter DT_FMT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");

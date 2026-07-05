@@ -21,6 +21,12 @@ import java.awt.FlowLayout;
 import java.util.Set;
 import java.util.regex.Pattern;
 
+/**
+ * Panel for managing the whitelist of allowed IP addresses.
+ * 
+ * @author yuehan124@gmail.com
+ * @since 2026-07-05
+ */
 public class WhitelistPanel extends JPanel {
 
     private static final Pattern IPV4 = Pattern.compile(

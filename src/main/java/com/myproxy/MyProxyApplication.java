@@ -15,6 +15,12 @@ import java.awt.SystemTray;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+/**
+ * Application entry point. Responsible for initializing and starting the proxy services.
+ * 
+ * @author yuehan124@gmail.com
+ * @since 2026-07-05
+ */
 public class MyProxyApplication {
 
     public static void main(String[] args) {

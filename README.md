@@ -7,9 +7,14 @@ A Java Swing desktop application that provides both HTTP forward proxy and rever
 - **Forward Proxy** — Based on [LittleProxy](https://github.com/LittleProxy/LittleProxy) (Netty-powered), with IP whitelist filtering support
 - **Reverse Proxy** — Built on Netty natively, routes requests by Host header to configured backend addresses
 - **Desktop GUI** — Swing tabbed interface with status display, control panels, whitelist management, reverse proxy rule management, and a shared log panel
-- **System Tray** — Minimize to system tray, double-click to restore
+- **Cross-Platform** — Supports Windows, macOS, and Linux desktops
+- **System Tray** — Minimize to system tray, click tray icon to restore
 - **i18n** — Supports English and Chinese UI languages
 - **Status Bar** — Displays local IP address, proxy running status, version and author info
+
+## Screenshot
+
+![MyProxy Screenshot](docs/myproxy_20260705.png)
 
 ## Tech Stack
 

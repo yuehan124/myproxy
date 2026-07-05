@@ -26,6 +26,12 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.util.List;
 
+/**
+ * Panel for managing reverse proxy settings.
+ * 
+ * @author yuehan124@gmail.com
+ * @since 2026-07-05
+ */
 public class ReverseProxyPanel extends JPanel {
 
     private final ConfigManager configManager;

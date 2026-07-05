@@ -5,6 +5,9 @@ import java.util.ResourceBundle;
 
 /**
  * Internationalization manager for MyProxy application
+ * 
+ * @author yuehan124@gmail.com
+ * @since 2026-07-05
  */
 public class I18nManager {
     private static final String BUNDLE_NAME = "messages.messages";

@@ -4,6 +4,12 @@ import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.util.Enumeration;
 
+/**
+ * Network utility class for MyProxy application.
+ * 
+ * @author yuehan124@gmail.com
+ * @since 2026-07-05
+ */
 public final class NetUtils {
 
     private NetUtils() {

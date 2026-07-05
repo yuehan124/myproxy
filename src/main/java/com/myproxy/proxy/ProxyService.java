@@ -24,6 +24,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Consumer;
 
+/**
+ * Forward proxy service for MyProxy application.
+ * 
+ * @author yuehan124@gmail.com
+ * @since 2026-07-05
+ */
 public class ProxyService {
 
     private static final Logger logger = LoggerFactory.getLogger(ProxyService.class);

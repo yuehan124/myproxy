@@ -2,13 +2,11 @@ package com.myproxy.ui;
 
 import com.myproxy.config.NetUtils;
 
-import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Desktop;
 import java.awt.FlowLayout;
@@ -18,6 +16,12 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.net.URI;
 
+/**
+ * Status bar for displaying proxy status and version information.
+ * 
+ * @author yuehan124@gmail.com
+ * @since 2026-07-05
+ */
 public class StatusBar extends JPanel {
 
     private final JLabel forwardStatusLabel;

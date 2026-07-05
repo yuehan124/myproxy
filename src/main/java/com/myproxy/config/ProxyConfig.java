@@ -7,6 +7,12 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+/**
+ * Proxy configuration class for MyProxy application.
+ * 
+ * @author yuehan124@gmail.com
+ * @since 2026-07-05
+ */
 public class ProxyConfig {
 
     @JsonProperty("port")

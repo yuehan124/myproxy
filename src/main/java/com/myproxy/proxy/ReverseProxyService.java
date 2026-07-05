@@ -25,7 +25,6 @@ import io.netty.handler.codec.http.HttpObjectAggregator;
 import io.netty.handler.codec.http.HttpResponseStatus;
 import io.netty.handler.codec.http.HttpServerCodec;
 import io.netty.handler.codec.http.HttpVersion;
-import io.netty.util.CharsetUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -38,6 +37,12 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.function.Consumer;
 
+/**
+ * Reverse proxy service for MyProxy application.
+ * 
+ * @author yuehan124@gmail.com
+ * @since 2026-07-05
+ */
 public class ReverseProxyService {
 
     private static final Logger logger = LoggerFactory.getLogger(ReverseProxyService.class);

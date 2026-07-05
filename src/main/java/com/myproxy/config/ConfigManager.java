@@ -11,6 +11,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
+/**
+ * Config manager for MyProxy application.
+ * 
+ * @author yuehan124@gmail.com
+ * @since 2026-07-05
+ */
 public class ConfigManager {
 
     private static final Logger logger = LoggerFactory.getLogger(ConfigManager.class);

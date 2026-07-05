@@ -15,6 +15,9 @@ import java.awt.image.BufferedImage;
 
 /**
  * Utility class for shared UI constants and helper methods.
+ * 
+ * @author yuehan124@gmail.com
+ * @since 2026-07-05
  */
 public final class UiUtils {
 
