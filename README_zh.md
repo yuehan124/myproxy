@@ -14,7 +14,7 @@
 
 ## 软件截图
 
-![MyProxy 软件截图](docs/myproxy_20260705.png)
+![MyProxy 软件截图](docs/myproxy_zh.png)
 
 ## 技术栈
 

@@ -14,7 +14,7 @@ A Java Swing desktop application that provides both HTTP forward proxy and rever
 
 ## Screenshot
 
-![MyProxy Screenshot](docs/myproxy_20260705.png)
+![MyProxy Screenshot](docs/myproxy_en.png)
 
 ## Tech Stack
 
