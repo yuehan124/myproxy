@@ -43,7 +43,7 @@ public class MainFrame extends JFrame {
         setSize(825, 600);
         setMinimumSize(new Dimension(825, 600));
         setLocationRelativeTo(null);
-        setIconImage(UiUtils.createCircleIcon(32, 4, 4));
+        setIconImages(UiUtils.loadAppIcons());
 
         // Main content panel using BorderLayout
         JPanel contentPanel = new JPanel(new BorderLayout(0, 5));

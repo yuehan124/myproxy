@@ -25,7 +25,7 @@ A Java Swing desktop application that provides both HTTP forward proxy and rever
 | Proxy Core | `xyz.rogfam:littleproxy:2.0.22` (Netty-based) |
 | JSON | `com.fasterxml.jackson:jackson-databind:2.13.5` |
 | Logging | `ch.qos.logback:logback-classic:1.3.14` |
-| Packaging | `maven-shade-plugin` producing executable fat jar |
+| Packaging | Maven Shade fat jar; `jdeps` + `jlink` + `jpackage` Windows installer |
 
 ## Project Structure
 
@@ -64,6 +64,30 @@ java -jar target/myproxy-1.0.0.jar
 
 # Run in development
 mvn exec:java -Dexec.mainClass="com.myproxy.MyProxyApplication"
+```
+
+### Windows EXE Installer
+
+Prerequisites:
+
+- JDK 21 or newer, including `jdeps`, `jlink`, and `jpackage`
+- Maven available on `PATH`
+- WiX Toolset 3.x available on `PATH`
+
+Run the packaging script from PowerShell:
+
+```powershell
+.\scripts\package-windows.ps1 -JavaHome "C:\Program Files\Java\jdk-21"
+```
+
+The script builds the executable fat jar, detects required Java modules with `jdeps`, creates a trimmed runtime with `jlink`, generates the MyProxy application icon, and produces `dist\MyProxy-<version>.exe` with `jpackage`. The installer includes the Java runtime, so no JDK or JRE is required on the target computer.
+
+When `JAVA_HOME` already points to JDK 21 or newer, the `-JavaHome` argument can be omitted. Use `-SkipTests` to skip tests or `-OutputDirectory <path>` to change the output directory.
+
+Application icons are stored under `src/main/resources/icons`. After changing the icon drawing code in `tools/IconGenerator.java`, regenerate the ICO and PNG files with:
+
+```powershell
+java .\tools\IconGenerator.java
 ```
 
 ## Configuration

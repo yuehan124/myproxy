@@ -35,7 +35,7 @@ public class SystemTrayManager {
         }
         systemTray = SystemTray.getSystemTray();
 
-        Image image = UiUtils.createCircleIcon(16, 2, 3);
+        Image image = UiUtils.loadAppIcon(16);
         popup = createMenu();
 
         trayIcon = new TrayIcon(image, "MyProxy");

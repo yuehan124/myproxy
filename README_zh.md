@@ -25,7 +25,7 @@
 | 代理核心 | `xyz.rogfam:littleproxy:2.0.22`（基于 Netty） |
 | JSON | `com.fasterxml.jackson:jackson-databind:2.13.5` |
 | 日志 | `ch.qos.logback:logback-classic:1.3.14` |
-| 打包 | `maven-shade-plugin` 生成可执行 fat jar |
+| 打包 | Maven Shade fat jar；`jdeps` + `jlink` + `jpackage` Windows 安装包 |
 
 ## 项目结构
 
@@ -64,6 +64,30 @@ java -jar target/myproxy-1.0.0.jar
 
 # 开发模式运行
 mvn exec:java -Dexec.mainClass="com.myproxy.MyProxyApplication"
+```
+
+### Windows EXE 安装包
+
+打包环境要求：
+
+- JDK 21 或更高版本，包含 `jdeps`、`jlink` 和 `jpackage`
+- Maven 已加入 `PATH`
+- WiX Toolset 3.x 已加入 `PATH`
+
+在 PowerShell 中运行：
+
+```powershell
+.\scripts\package-windows.ps1 -JavaHome "C:\Program Files\Java\jdk-21"
+```
+
+脚本会构建可执行 fat jar，通过 `jdeps` 检测 Java 模块，使用 `jlink` 生成裁剪运行时，生成 MyProxy 应用图标，最后由 `jpackage` 输出 `dist\MyProxy-<版本>.exe`。安装包自带 Java 运行时，目标电脑无需安装 JDK/JRE。
+
+如果 `JAVA_HOME` 已指向 JDK 21 或更高版本，可以省略 `-JavaHome`。使用 `-SkipTests` 可跳过测试，使用 `-OutputDirectory <路径>` 可修改输出目录。
+
+应用图标位于 `src/main/resources/icons`。修改 `tools/IconGenerator.java` 中的图标绘制代码后，使用以下命令重新生成 ICO 和 PNG：
+
+```powershell
+java .\tools\IconGenerator.java
 ```
 
 ## 配置

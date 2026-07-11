@@ -5,13 +5,13 @@ import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 import javax.swing.JTextField;
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.RenderingHints;
-import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URL;
+import java.util.List;
+import javax.imageio.ImageIO;
 
 /**
  * Utility class for shared UI constants and helper methods.
@@ -24,8 +24,6 @@ public final class UiUtils {
     public static final Color COLOR_RUNNING = new Color(46, 139, 87);
     public static final Color COLOR_STOPPED = new Color(128, 128, 128);
     public static final Color COLOR_LABEL = new Color(102, 102, 102);
-    public static final Color COLOR_ICON = new Color(220, 53, 69);
-
     /** Default font size for all UI components */
     public static final float DEFAULT_FONT_SIZE = 12f;
 
@@ -42,23 +40,21 @@ public final class UiUtils {
         component.setFont(component.getFont().deriveFont(DEFAULT_FONT_SIZE));
     }
 
-    /**
-     * Create a circular ring icon with the given size.
-     *
-     * @param size       image size in pixels
-     * @param margin     margin around the circle
-     * @param strokeWidth stroke width of the circle
-     * @return generated icon image
-     */
-    public static Image createCircleIcon(int size, int margin, int strokeWidth) {
-        BufferedImage img = new BufferedImage(size, size, BufferedImage.TYPE_INT_ARGB);
-        Graphics2D g = img.createGraphics();
-        g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g.setColor(COLOR_ICON);
-        g.setStroke(new BasicStroke(strokeWidth));
-        g.drawOval(margin, margin, size - 2 * margin, size - 2 * margin);
-        g.dispose();
-        return img;
+    public static List<Image> loadAppIcons() {
+        return List.of(loadAppIcon(16), loadAppIcon(32), loadAppIcon(48), loadAppIcon(256));
+    }
+
+    public static Image loadAppIcon(int size) {
+        String resourcePath = "/icons/myproxy-" + size + ".png";
+        URL resource = UiUtils.class.getResource(resourcePath);
+        if (resource == null) {
+            throw new IllegalStateException("Missing application icon: " + resourcePath);
+        }
+        try {
+            return ImageIO.read(resource);
+        } catch (IOException e) {
+            throw new IllegalStateException("Unable to load application icon: " + resourcePath, e);
+        }
     }
 
     /**
