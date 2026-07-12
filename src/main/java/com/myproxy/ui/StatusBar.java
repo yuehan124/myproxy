@@ -1,6 +1,7 @@
 package com.myproxy.ui;
 
 import com.myproxy.config.NetUtils;
+import com.myproxy.update.UpdateService;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -33,7 +34,7 @@ public class StatusBar extends JPanel {
         I18nManager i18n = I18nManager.getInstance();
 
         // Left: Version and contact info
-        JLabel versionLabel = new JLabel(i18n.getString("statusbar.version") + " v1.0");
+        JLabel versionLabel = new JLabel(i18n.getString("statusbar.version") + " v" + UpdateService.CURRENT_VERSION);
         UiUtils.applyFont(versionLabel);
         versionLabel.setForeground(UiUtils.COLOR_LABEL);
 

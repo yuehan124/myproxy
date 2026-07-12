@@ -95,12 +95,22 @@ if (Test-Path -LiteralPath $outputPath) {
 }
 New-Item -ItemType Directory -Path $outputPath | Out-Null
 
+# Build the Windows installer with jpackage.
+# --win-per-user-install: install to %LocalAppData% (no admin rights needed),
+#   so the app can self-update by writing new jars into the app directory.
+# --win-upgrade-uuid: stable product identifier so new versions can overwrite
+#   existing installs (without this, same-version re-install silently exits).
+# --win-dir-chooser is intentionally omitted: if the user picks a directory
+#   they lack write permission for (e.g. C:\Program Files), the auto-updater
+#   cannot download/replace jars, so installation must stay in the fixed
+#   per-user location.
 & $jpackage --type exe --name "MyProxy" --app-version $appVersion `
     --vendor "MyProxy" --description "HTTP forward and reverse proxy" `
     --input $inputPath --main-jar $jarName --icon $iconPath `
     --main-class "com.myproxy.MyProxyApplication" --runtime-image $runtimePath `
-    --dest $outputPath --win-dir-chooser --win-menu --win-menu-group "MyProxy" `
-    --win-shortcut
+    --dest $outputPath --win-menu --win-menu-group "MyProxy" `
+    --win-shortcut --win-per-user-install `
+    --win-upgrade-uuid "850015E9-1ED2-402F-AF5C-336B056012AE"
 if ($LASTEXITCODE -ne 0) {
     throw "jpackage failed. On JDK 21, verify that WiX Toolset 3.x is installed and on PATH."
 }

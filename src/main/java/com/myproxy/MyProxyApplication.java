@@ -5,6 +5,7 @@ import com.myproxy.proxy.ProxyService;
 import com.myproxy.proxy.ReverseProxyService;
 import com.myproxy.ui.MainFrame;
 import com.myproxy.ui.SystemTrayManager;
+import com.myproxy.update.UpdateService;
 
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
@@ -64,10 +65,14 @@ public class MyProxyApplication {
 
                 mainFrame.setVisible(true);
 
-                // 启动时自动开启正向代理
+                // Check for updates asynchronously
+                UpdateService updateService = new UpdateService(configManager, mainFrame::exitApp);
+                updateService.checkForUpdatesAsync();
+
+                // Auto-start forward proxy on startup
                 new Thread(() -> proxyService.start()).start();
 
-                // 如果反向代理配置了规则且启用，也自动启动
+                // Auto-start reverse proxy if enabled with rules
                 if (configManager.getConfig().isReverseProxyEnabled()
                         && !configManager.getConfig().getReverseProxyRules().isEmpty()) {
                     new Thread(() -> reverseProxyService.start()).start();

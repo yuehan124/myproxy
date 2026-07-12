@@ -36,6 +36,12 @@ public class ProxyConfig {
     @JsonProperty("language")
     private String language = "auto";
 
+    @JsonProperty("updateUrl")
+    private String updateUrl;
+
+    @JsonProperty("autoUpdate")
+    private boolean autoUpdate = true;
+
     public ProxyConfig() {
         allowedIps.add("127.0.0.1");
         allowedIps.add("0:0:0:0:0:0:0:1");
@@ -113,6 +119,22 @@ public class ProxyConfig {
 
     public void setLanguage(String language) {
         this.language = language;
+    }
+
+    public String getUpdateUrl() {
+        return updateUrl;
+    }
+
+    public void setUpdateUrl(String updateUrl) {
+        this.updateUrl = updateUrl;
+    }
+
+    public boolean isAutoUpdate() {
+        return autoUpdate;
+    }
+
+    public void setAutoUpdate(boolean autoUpdate) {
+        this.autoUpdate = autoUpdate;
     }
 
     public static class ReverseProxyRule {
