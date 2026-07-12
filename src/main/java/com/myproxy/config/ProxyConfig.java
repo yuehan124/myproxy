@@ -19,7 +19,7 @@ public class ProxyConfig {
     private int port = 6666;
 
     @JsonProperty("whitelistEnabled")
-    private boolean whitelistEnabled = true;
+    private boolean whitelistEnabled = false;
 
     @JsonProperty("allowedIps")
     private Set<String> allowedIps = new LinkedHashSet<>();

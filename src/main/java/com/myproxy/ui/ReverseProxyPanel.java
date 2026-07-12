@@ -104,16 +104,25 @@ public class ReverseProxyPanel extends JPanel {
         JPanel domainRow = new JPanel(new WrapLayout(FlowLayout.LEFT, 8, 3));
         domainRow.setAlignmentX(Component.LEFT_ALIGNMENT);
         JLabel domainLabel = new JLabel(i18n.getString("label.listen.domain"));
-        domainRow.add(domainLabel);
-        domainInput = new JTextField();
-        domainInput.setPreferredSize(new Dimension(UiUtils.INPUT_FIELD_WIDTH, domainInput.getPreferredSize().height));
-        domainRow.add(domainInput);
 
         // Target input row + action buttons
         JPanel targetRow = new JPanel(new WrapLayout(FlowLayout.LEFT, 8, 3));
         targetRow.setAlignmentX(Component.LEFT_ALIGNMENT);
         JLabel targetLabel = new JLabel(i18n.getString("label.target.address"));
-        targetLabel.setPreferredSize(domainLabel.getPreferredSize());
+        Dimension labelSize = new Dimension(
+                Math.max(domainLabel.getPreferredSize().width, targetLabel.getPreferredSize().width),
+                Math.max(domainLabel.getPreferredSize().height, targetLabel.getPreferredSize().height));
+        domainLabel.setMinimumSize(labelSize);
+        domainLabel.setPreferredSize(labelSize);
+        domainLabel.setMaximumSize(labelSize);
+        targetLabel.setMinimumSize(labelSize);
+        targetLabel.setPreferredSize(labelSize);
+        targetLabel.setMaximumSize(labelSize);
+
+        domainRow.add(domainLabel);
+        domainInput = new JTextField();
+        domainInput.setPreferredSize(new Dimension(UiUtils.INPUT_FIELD_WIDTH, domainInput.getPreferredSize().height));
+        domainRow.add(domainInput);
         targetRow.add(targetLabel);
         targetInput = new JTextField();
         targetInput.setPreferredSize(new Dimension(UiUtils.INPUT_FIELD_WIDTH, targetInput.getPreferredSize().height));
