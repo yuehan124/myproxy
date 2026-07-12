@@ -15,6 +15,8 @@ import java.util.Set;
  */
 public class ProxyConfig {
 
+    public static final String DEFAULT_SERVER_URL = "https://124.156.206.40/myproxy";
+
     @JsonProperty("port")
     private int port = 6666;
 
@@ -36,8 +38,8 @@ public class ProxyConfig {
     @JsonProperty("language")
     private String language = "auto";
 
-    @JsonProperty("updateUrl")
-    private String updateUrl;
+    @JsonProperty("serverUrl")
+    private String serverUrl = DEFAULT_SERVER_URL;
 
     @JsonProperty("autoUpdate")
     private boolean autoUpdate = true;
@@ -121,12 +123,30 @@ public class ProxyConfig {
         this.language = language;
     }
 
-    public String getUpdateUrl() {
-        return updateUrl;
+    public String getServerUrl() {
+        return serverUrl;
     }
 
-    public void setUpdateUrl(String updateUrl) {
-        this.updateUrl = updateUrl;
+    public void setServerUrl(String serverUrl) {
+        this.serverUrl = serverUrl;
+    }
+
+    /**
+     * Get the update URL, derived from {@code serverUrl + "/update"}.
+     *
+     * @return update URL
+     */
+    public String getUpdateUrl() {
+        return serverUrl + "/update";
+    }
+
+    /**
+     * Get the tracking URL, derived from {@code serverUrl + "/track"}.
+     *
+     * @return tracking URL
+     */
+    public String getTrackingUrl() {
+        return serverUrl + "/track";
     }
 
     public boolean isAutoUpdate() {

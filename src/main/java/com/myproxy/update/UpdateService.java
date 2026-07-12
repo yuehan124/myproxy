@@ -6,9 +6,6 @@ import com.myproxy.ui.I18nManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.TrustManager;
-import javax.net.ssl.X509TrustManager;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import java.io.File;
@@ -21,7 +18,6 @@ import java.net.http.HttpResponse;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
-import java.security.cert.X509Certificate;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
@@ -143,7 +139,7 @@ public class UpdateService {
      */
     private List<String> fetchVersionList(String baseUrl) throws IOException, InterruptedException {
         String url = baseUrl + "/versions.txt";
-        HttpClient client = createHttpClient();
+        HttpClient client = HttpClientFactory.createTrustAllClient(10);
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(url))
                 .timeout(Duration.ofSeconds(15))
@@ -270,7 +266,7 @@ public class UpdateService {
      * @param destPath destination file path
      */
     private void downloadJarTo(String url, Path destPath) throws IOException, InterruptedException {
-        HttpClient client = createHttpClient();
+        HttpClient client = HttpClientFactory.createTrustAllClient(10);
         HttpRequest request = HttpRequest.newBuilder()
                 .uri(URI.create(url))
                 .timeout(Duration.ofMinutes(5))
@@ -328,41 +324,6 @@ public class UpdateService {
             shutdownCallback.run();
         } catch (IOException e) {
             logger.error("Failed to restart application", e);
-        }
-    }
-
-    /**
-     * Create an HttpClient that trusts all SSL certificates.
-     * This is needed for update servers using self-signed certificates.
-     *
-     * @return a trust-all HttpClient
-     */
-    private HttpClient createHttpClient() {
-        try {
-            SSLContext sslContext = SSLContext.getInstance("TLS");
-            sslContext.init(null, new TrustManager[]{new X509TrustManager() {
-                @Override
-                public void checkClientTrusted(X509Certificate[] chain, String authType) {
-                }
-
-                @Override
-                public void checkServerTrusted(X509Certificate[] chain, String authType) {
-                }
-
-                @Override
-                public X509Certificate[] getAcceptedIssuers() {
-                    return new X509Certificate[0];
-                }
-            }}, null);
-            return HttpClient.newBuilder()
-                    .connectTimeout(Duration.ofSeconds(10))
-                    .sslContext(sslContext)
-                    .build();
-        } catch (Exception e) {
-            logger.warn("Failed to create trust-all SSL context, using default", e);
-            return HttpClient.newBuilder()
-                    .connectTimeout(Duration.ofSeconds(10))
-                    .build();
         }
     }
 

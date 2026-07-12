@@ -3,6 +3,7 @@ package com.myproxy.ui;
 import com.myproxy.config.ConfigManager;
 import com.myproxy.proxy.ProxyService;
 import com.myproxy.proxy.ReverseProxyService;
+import com.myproxy.update.TrackingService;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
@@ -29,6 +30,7 @@ public class MainFrame extends JFrame {
     private final ReverseProxyService reverseProxyService;
     private final LogPanel logPanel;
     private final StatusBar statusBar;
+    private TrackingService trackingService;
 
     public MainFrame(ProxyService proxyService, ReverseProxyService reverseProxyService, ConfigManager configManager) {
         super("MyProxy");
@@ -129,7 +131,14 @@ public class MainFrame extends JFrame {
         requestFocus();
     }
 
+    public void setTrackingService(TrackingService trackingService) {
+        this.trackingService = trackingService;
+    }
+
     public void exitApp() {
+        if (trackingService != null) {
+            trackingService.send("stop");
+        }
         if (proxyService.isRunning()) {
             proxyService.stop();
         }

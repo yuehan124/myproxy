@@ -5,6 +5,7 @@ import com.myproxy.proxy.ProxyService;
 import com.myproxy.proxy.ReverseProxyService;
 import com.myproxy.ui.MainFrame;
 import com.myproxy.ui.SystemTrayManager;
+import com.myproxy.update.TrackingService;
 import com.myproxy.update.UpdateService;
 
 import javax.swing.JOptionPane;
@@ -57,6 +58,12 @@ public class MyProxyApplication {
                 ReverseProxyService reverseProxyService = new ReverseProxyService(configManager);
 
                 MainFrame mainFrame = new MainFrame(proxyService, reverseProxyService, configManager);
+
+                // Usage tracking (fire-and-forget)
+                TrackingService trackingService = new TrackingService(
+                        configManager.getConfig().getTrackingUrl());
+                trackingService.send("start");
+                mainFrame.setTrackingService(trackingService);
 
                 if (SystemTray.isSupported()) {
                     SystemTrayManager tray = new SystemTrayManager(mainFrame);

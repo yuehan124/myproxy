@@ -22,7 +22,6 @@ public class ConfigManager {
     private static final Logger logger = LoggerFactory.getLogger(ConfigManager.class);
     private static final String CONFIG_DIR = ".myproxy";
     private static final String CONFIG_FILE = "config.json";
-    private static final String DEFAULT_UPDATE_URL = "https://124.156.206.40/myproxy";
 
     private final ObjectMapper objectMapper;
     private final File configFile;
@@ -47,9 +46,9 @@ public class ConfigManager {
         if (configFile.exists()) {
             try {
                 config = objectMapper.readValue(configFile, ProxyConfig.class);
-                // Backfill default values for fields missing from older config files
-                if (config.getUpdateUrl() == null || config.getUpdateUrl().isBlank()) {
-                    config.setUpdateUrl(DEFAULT_UPDATE_URL);
+                // Backfill serverUrl for fields missing from older config files
+                if (config.getServerUrl() == null || config.getServerUrl().isBlank()) {
+                    config.setServerUrl(ProxyConfig.DEFAULT_SERVER_URL);
                     saveConfig();
                 }
                 logger.info("Config loaded, port: {}, whitelist size: {}",
